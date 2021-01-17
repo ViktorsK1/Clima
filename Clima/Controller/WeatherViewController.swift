@@ -15,6 +15,8 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
     
+    var weatherManager = WeatherManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
   
@@ -24,6 +26,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     @IBAction func searchPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
         print(searchTextField.text!)
+        cityLabel.text = searchTextField.text
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -42,7 +45,11 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        Use searchTextField.text to get weather for that city.
+        
+        if let city = searchTextField.text {
+            weatherManager.fetchWeather(cityName: city)
+        }
+
         
         searchTextField.text = ""
     }
@@ -63,3 +70,4 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
 
 //change in code city and update degree, image, city name.
 //strangth update weather
+//next step:
